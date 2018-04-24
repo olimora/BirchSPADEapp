@@ -1,0 +1,14 @@
+# library(devtools)
+# 
+# devtools::load_all("D:/skola/diplo/code_git/diplo_code/BirchSPADE")
+# devtools::install("D:/skola/diplo/code_git/diplo_code/BirchSPADE")
+
+
+library(BirchSPADE)
+input_file_full = "/home/DATA/BIOINF-DATA/P2&P3/for-analyses/healthy/hBM-10n-sort-p2-concat-normalized-noCD3-CD14-CD15.fcs"
+outputs_dir = "/home/moravcik/BirchSPADEapp/BirchSPADE_outputs"
+markers <- c('CD10','CD34','CD19','CD20','CD22','CD27','CD38','CD45','CD138','IgM','IgD','IgA','IgG')
+
+BirchSPADE.run.analysis(input_file_full, outputs_dir, markers, remove_outliers = F, subcluster_limit = 5000)
+
+dir.create(outputs_dir)

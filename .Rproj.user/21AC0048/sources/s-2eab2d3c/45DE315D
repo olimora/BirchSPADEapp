@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1524574265950.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3123733543",
+    "id" : "45DE315D",
+    "lastKnownWriteTime" : 1521901182,
+    "last_content_update" : 1521901182,
+    "path" : "~/SPADE_app/SPADE/backend.R",
+    "project_path" : null,
+    "properties" : {
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

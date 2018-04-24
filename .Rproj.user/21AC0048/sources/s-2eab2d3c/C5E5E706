@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1524573820876.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "C5E5E706",
+    "lastKnownWriteTime" : 1524591071,
+    "last_content_update" : 1524591071339,
+    "path" : "~/BirchSPADEapp/server.R",
+    "project_path" : "server.R",
+    "properties" : {
+        "cursorPosition" : "143,48",
+        "scrollLine" : "137",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
