@@ -77,6 +77,20 @@ shinyServer(function(input, output, session) {
     updateTextInput(session, "output_name", value = val)
   })
   
+  # validate limit of subclusters
+  observe({
+    is_numeric = is.numeric(input$subclust_lim)
+    is_integer = is.integer(input$subclust_lim)
+    if (!is_numeric || !is_integer || input$subclust_lim < 0) {
+      showModal(modalDialog(
+        title = "Invalid limit of subclusters",
+        "Number of subclusters can be only integer",
+        easyClose = TRUE
+      ))
+      updateNumericInput(session, "subclust_lim", value = 10000)
+    }
+  })
+  
   # validate number of clusters
   observe({
     is_numeric = is.numeric(input$clust_num)
@@ -91,7 +105,7 @@ shinyServer(function(input, output, session) {
     }
   })
   
-  # validate number of clusters
+  # validate number of kmens iterations
   observe({
     is_numeric = is.numeric(input$kmeans_iters)
     is_integer = is.integer(input$kmeans_iters)
@@ -129,6 +143,7 @@ shinyServer(function(input, output, session) {
       shinyjs::disable("markers")
       shinyjs::disable("output_name")
       shinyjs::disable("outlier_removal")
+      shinyjs::disable("use_density")
       shinyjs::disable("plot_pdfs")
       shinyjs::disable("clust_num")   
       shinyjs::disable("kmeans_iters")
@@ -151,13 +166,15 @@ shinyServer(function(input, output, session) {
                                 final_cluster_count = input$clust_num,
                                 kmeans_upsampling_iterations = input$kmeans_iters,
                                 plot_trees = input$plot_pdfs,
-                                subcluster_limit = input$subclust_lim)
+                                subcluster_limit = input$subclust_lim,
+                                use_density = input$use_density)
       })
       
       shinyjs::enable("file")
       shinyjs::enable("markers")
       shinyjs::enable("output_name")
       shinyjs::enable("outlier_removal")
+      shinyjs::enable("use_density")
       shinyjs::enable("plot_pdfs")
       shinyjs::enable("clust_num")   
       shinyjs::enable("kmeans_iters")

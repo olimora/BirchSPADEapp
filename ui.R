@@ -25,7 +25,7 @@ shinyUI(fluidPage(tweaks,
                   
                   # input file
                   selectInput("file", "File", choices = NULL, selected = NULL, multiple = FALSE,
-                              selectize = TRUE, width = '50%', size = NULL),
+                              selectize = TRUE, size = NULL, width = "90%"),
                   
                   # markers for clustering
                   tags$div(align = 'left',
@@ -34,32 +34,24 @@ shinyUI(fluidPage(tweaks,
                                               choices = NULL)),
                   
                   # analyisi settings
-                  h4("Basic settings"),
-                  fluidRow(
+                  h4("Settings"),
+                  fluidRow( # row with output folder
                     column(12, 
-                           textInput("output_name", "Name of output folder", width = "50%")
-                    ),
-                    column(2,
-                           checkboxInput("outlier_removal", "Outlier removal", TRUE),
-                           checkboxInput("plot_pdfs", "Plot trees to PDF files", TRUE)
-                    ),
-                    column(2,
-                           numericInput("clust_num", "Number of clusters", value = 500, min = 0, max = 1500, step = 100, width = 200)
-                    ),
-                    column(2,
-                           numericInput("kmeans_iters", "Upsampling iterations", value = 1, min = 1, max = 5, step = 1, width = 200)
+                           textInput("output_name", "Name of output folder", width = "90%")
                     )
-                    
                   ),
-                  
-                  h4("Additional settings"),
                   fluidRow(
-                    column(3,
-                           numericInput("subclust_lim", "Subcluster count limit (0 for auto)", value = 0, min = 0, max = 50000, step = 1000)  
-                    ),
-                    column(9,
+                    column(5,
                            radioButtons("normalization", "Normalization", inline = T, 
-                                        choices = c("MinMax" = "minmax", "MeanSTD" = "meanstd", "None" = "none"))
+                                        choices = c("MinMax" = "minmax", "MeanSTD" = "meanstd", "None" = "none")),
+                           checkboxInput("outlier_removal", "Remove outliers", TRUE),
+                           checkboxInput("use_density", "Use density in clustering", TRUE),
+                           checkboxInput("plot_pdfs", "Plot trees to PDF files", FALSE)
+                    ),
+                    column(5,
+                           numericInput("subclust_lim", "Subcluster count limit (0 for auto)", value = 0, min = 0, max = 50000, step = 1000),
+                           numericInput("clust_num", "Number of clusters", value = 500, min = 0, max = 1500, step = 100),
+                           numericInput("kmeans_iters", "Upsampling iterations", value = 1, min = 1, max = 5, step = 1)
                     )
                   ),
                   
