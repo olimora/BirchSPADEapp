@@ -3,10 +3,8 @@ library(shinyjs)
 library(flowCore)
 library(BirchSPADE)
 
-# source("/home/moravcik/SPADE_app/SPADE/backend.R")
-
-folder_home = "/home/DATA/BIOINF-DATA/"
-files = list.files(folder_home, pattern = "\\.fcs$", recursive = T)
+# BirchSPADEapp_fcs_data_home_folder_global = "/home/DATA/BIOINF-DATA/"
+files = list.files(BirchSPADEapp_fcs_data_home_folder_global, pattern = "\\.fcs$", recursive = T)
 
 getSubclustLimit = function(cell_count) {
   ret = round(cell_count/10)
@@ -21,6 +19,11 @@ shinyServer(function(input, output, session) {
   shinyjs::hide("status_info")
   shinyjs::disable("status_info")
   
+  filter <- reactive({
+    if (!exists("BirchSPADEapp_fcs_data_home_folder_global") || !exists("BirchSPADEapp_outputs_home_folder_global"))
+      stop("Global variable does not exist in global environment.")
+  })
+  
   # observe to fill files select input
   observe({
     updateSelectInput(session, "file",
@@ -30,7 +33,7 @@ shinyServer(function(input, output, session) {
   # observe to fill markers checkboxes
   observe({
     if (input$file != "") {
-      input_file_full = paste0(folder_home, "/", input$file)
+      input_file_full = paste0(BirchSPADEapp_fcs_data_home_folder_global, "/", input$file)
       if (isFCSfile(input_file_full)) {
         tryCatch({
           in_fcs = read.FCS(input_file_full)
@@ -70,7 +73,7 @@ shinyServer(function(input, output, session) {
   
   # change output folder name with file change
   observe({
-    folder = getwd()
+    folder = BirchSPADEapp_outputs_home_folder_global
     folder_outputs = paste0(folder,"/","BirchSPADE_outputs/")
     dir.create(folder_outputs, showWarnings = FALSE)
     val = paste0(folder_outputs, basename(input$file))
@@ -121,10 +124,6 @@ shinyServer(function(input, output, session) {
   
   #button to run spade
   observeEvent(input$run_analysis, {
-    ##TODO: chceck if all values are right
-    ##TODO: meassure time and display
-    ##TODO: console output to app?
-    
     verified = TRUE
     
     ## verify that chosen markers length > 0
@@ -158,7 +157,7 @@ shinyServer(function(input, output, session) {
       withProgress(message = 'Running analysis', value = 0, {
         incProgress(0.5, detail = "Just running")
         
-        BirchSPADE.run.analysis(input_file_full = paste0(folder_home,input$file),
+        BirchSPADE.run.analysis(input_file_full = paste0(BirchSPADEapp_fcs_data_home_folder_global,input$file),
                                 outputs_dir = gsub(x = input$output_name, pattern = basename(input$file), replacement = ""),
                                 markers = input$markers,
                                 normalization = input$normalization,
