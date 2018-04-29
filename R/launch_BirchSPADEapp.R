@@ -1,16 +1,15 @@
 launch_BirchSPADEapp = function(fcs_data_home_folder,
                                 outputs_home_folder) {
   appDir <- system.file("app_dir", package = "BirchSPADEapp")
-  print(appDir)
   if (appDir == "") {
     stop("Could not find the app. Try re-installing `BirchSPADEapp`.", call. = FALSE)
   }
   
   # does fcs_data_home_folder exist?
-  if (!file.exists(fcs_data_home_folder)) {
+  if (!file.exists(gsub(x = fcs_data_home_folder, pattern = "/$", ""))) {
     stop("Provided path to FSC files does not exist.", call. = FALSE)
   }
-  if (!file.exists(outputs_home_folder)) {
+  if (!file.exists(gsub(x = outputs_home_folder, pattern = "/$", ""))) {
     dir.create(outputs_home_folder, showWarnings = FALSE)
   }
   
