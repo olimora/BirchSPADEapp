@@ -112,7 +112,7 @@ shinyServer(function(input, output, session) {
   observe({
     is_numeric = is.numeric(input$kmeans_iters)
     is_integer = is.integer(input$kmeans_iters)
-    if (!is_numeric || !is_integer || input$clust_num < 0) {
+    if (!is_numeric || !is_integer || input$kmeans_iters < 0) {
       showModal(modalDialog(
         title = "Invalid number of upsampling iterations",
         "Number of iterations can be only integer",
