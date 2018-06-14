@@ -46,9 +46,7 @@ shinyUI(fluidPage(tweaks,
                                         choices = c("MinMax" = "minmax", "MeanSTD" = "meanstd")),
                            checkboxInput("outlier_removal", "Remove outliers", TRUE),
                            checkboxInput("use_density", "Use density in clustering", TRUE),
-                           checkboxInput("plot_pdfs", "Plot trees to PDF files", FALSE),
-                           radioButtons("clust_method", "Cluster similarity", inline = T, selected = "ward",
-                                        choices = c("Single Linkage" = "single", "Ward" = "ward"))
+                           checkboxInput("plot_pdfs", "Plot trees to PDF files", FALSE)
                     ),
                     column(5,
                            numericInput("subclust_lim", "Subcluster count limit (0 for auto)", value = 0, min = 0, max = 50000, step = 1000),
