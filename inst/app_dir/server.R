@@ -112,10 +112,10 @@ shinyServer(function(input, output, session) {
   observe({
     is_numeric = is.numeric(input$kmeans_iters)
     is_integer = is.integer(input$kmeans_iters)
-    if (!is_numeric || !is_integer || input$kmeans_iters < 0) {
+    if (!is_numeric || !is_integer || input$kmeans_iters < 0 || input$kmeans_iters > 5) {
       showModal(modalDialog(
         title = "Invalid number of upsampling iterations",
-        "Number of iterations can be only integer",
+        "Number of iterations can be only integer. From 1 to 5",
         easyClose = TRUE
       ))
       updateNumericInput(session, "kmeans_iters", value = 1)
@@ -144,7 +144,6 @@ shinyServer(function(input, output, session) {
       shinyjs::disable("outlier_removal")
       shinyjs::disable("use_density")
       shinyjs::disable("plot_pdfs")
-      shinyjs::disable("clust_method")
       shinyjs::disable("clust_num")   
       shinyjs::disable("kmeans_iters")
       shinyjs::disable("subclust_lim")
@@ -168,7 +167,7 @@ shinyServer(function(input, output, session) {
                                 plot_trees = input$plot_pdfs,
                                 subcluster_limit = input$subclust_lim,
                                 use_density = input$use_density,
-                                hclust_method = input$clust_method)
+                                hclust_method = "ward")
       })
       
       shinyjs::enable("file")
@@ -177,7 +176,6 @@ shinyServer(function(input, output, session) {
       shinyjs::enable("outlier_removal")
       shinyjs::enable("use_density")
       shinyjs::enable("plot_pdfs")
-      shinyjs::enable("clust_method")
       shinyjs::enable("clust_num")   
       shinyjs::enable("kmeans_iters")
       shinyjs::enable("subclust_lim")
